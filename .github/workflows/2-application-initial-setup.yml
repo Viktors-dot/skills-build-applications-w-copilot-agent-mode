@@ -110,8 +110,10 @@ jobs:
       # END: Check practical exercise
 
       - name: Fail job if not all checks passed
-        if: ${{ steps.check-react-19.outcome != 'success' || steps.check-express.outcome != 'success' || steps.check-mongoose.outcome != 'success' }}
-        run: exit 1
+        run: |
+          if [[ "${{ steps.check-react-19.outcome }}" != "success" || "${{ steps.check-express.outcome }}" != "success" || "${{ steps.check-mongoose.outcome }}" != "success" ]]; then
+            exit 1
+          fi
 
   post_next_step_content:
     name: Post next step content
